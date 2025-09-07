@@ -1,5 +1,6 @@
 <script>
     import profilePicture from '$lib/assets/profile-picture.jpg'
+    import MingcuteMapPinFill from '~icons/mingcute/map-pin-fill';
 </script>
 
 <div class="preset-content-width mt-8">
@@ -7,7 +8,7 @@
         <div class="m-6">
             <h1 class="h1">Hello, I am Paul MATHIEU</h1>
             <div class="flex align-middle mt-4">
-                <span>Replace sith map pin icon</span>
+                <MingcuteMapPinFill class="w-8 h-8 text-red-500"/>
                 <span class="inline-block text-2xl ml-4">Nice, France</span>
             </div>
             <div class="flex gap-4 mt-4">
