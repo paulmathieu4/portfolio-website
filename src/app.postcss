@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind variants;
+
+html,
+body {
+	@apply h-full overflow-hidden;
+}
+
+/* modern theme */
+@font-face {
+	font-family: 'Quicksand';
+	src: url('/fonts/Quicksand.ttf');
+	font-display: swap;
+}
+
+.preset-nice-paragraph {
+    @apply p-6 text-lg leading-relaxed text-justify;
+}
+
+.preset-content-width
+{
+    @apply mx-auto max-w-prose;
+}

@@ -1,0 +1,56 @@
+<script lang="ts">
+	import '../app.postcss';
+	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
+
+	// Highlight JS
+	import hljs from 'highlight.js/lib/core';
+	import 'highlight.js/styles/github-dark.css';
+	import { storeHighlightJs } from '@skeletonlabs/skeleton';
+	import xml from 'highlight.js/lib/languages/xml'; // for HTML
+	import css from 'highlight.js/lib/languages/css';
+	import javascript from 'highlight.js/lib/languages/javascript';
+	import typescript from 'highlight.js/lib/languages/typescript';
+
+	hljs.registerLanguage('xml', xml); // for HTML
+	hljs.registerLanguage('css', css);
+	hljs.registerLanguage('javascript', javascript);
+	hljs.registerLanguage('typescript', typescript);
+	storeHighlightJs.set(hljs);
+
+	// Floating UI for Popups
+	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
+	import { storePopup } from '@skeletonlabs/skeleton';
+	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
+</script>
+
+<!-- App Shell -->
+<AppShell>
+	<svelte:fragment slot="header">
+		<!-- App Bar -->
+		<AppBar>
+			<svelte:fragment slot="lead">
+				<strong class="text-xl uppercase">Paul's Portfolio</strong>
+			</svelte:fragment>
+			<div class="flex justify-center">
+				<a href="/presentation" class="btn bg-gradient-to-br variant-gradient-primary-secondary mr-4">
+					<span>(icon)</span>
+					<span>About me</span>
+				</a>
+				<a href="/skills" class="btn bg-gradient-to-br variant-gradient-primary-secondary mr-4">
+					<span>(icon)</span>
+					<span>My skills</span>
+				</a>
+				<a href="/projects" class="btn bg-gradient-to-br variant-gradient-primary-secondary mr-4">
+					<span>(icon)</span>
+					<span>My projects</span>
+				</a>
+				<a href="/cheatsheet" class="btn bg-gradient-to-br variant-gradient-primary-secondary mr-4">
+					<span>(icon)</span>
+					<span>CheatSheet</span>
+				</a>
+			</div>
+		</AppBar>
+	</svelte:fragment>
+	<!-- Page Route Content -->
+	<slot />
+</AppShell>
