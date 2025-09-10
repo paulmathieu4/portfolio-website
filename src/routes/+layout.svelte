@@ -1,6 +1,9 @@
 <script lang="ts">
 	import '../app.postcss';
 	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
+	import MaterialSymbolsAccountCircleFull from '~icons/material-symbols/account-circle-full'
+	import GameIconsSkills from '~icons/game-icons/skills'
+	import StreamlineUltimateCodingAppsWebsiteAppsBrowserBold from '~icons/streamline-ultimate/coding-apps-website-apps-browser-bold'
 
 	// Highlight JS
 	import hljs from 'highlight.js/lib/core';
@@ -24,7 +27,7 @@
 </script>
 
 <!-- App Shell -->
-<AppShell>
+<AppShell slotPageContent="p-4">
 	<svelte:fragment slot="header">
 		<!-- App Bar -->
 		<AppBar>
@@ -33,15 +36,15 @@
 			</svelte:fragment>
 			<div class="flex justify-center">
 				<a href="/presentation" class="btn bg-gradient-to-br variant-gradient-primary-secondary mr-4">
-					<span>(icon)</span>
+					<MaterialSymbolsAccountCircleFull/>
 					<span>About me</span>
 				</a>
 				<a href="/skills" class="btn bg-gradient-to-br variant-gradient-primary-secondary mr-4">
-					<span>(icon)</span>
+					<GameIconsSkills/>
 					<span>My skills</span>
 				</a>
 				<a href="/projects" class="btn bg-gradient-to-br variant-gradient-primary-secondary mr-4">
-					<span>(icon)</span>
+					<StreamlineUltimateCodingAppsWebsiteAppsBrowserBold/>
 					<span>My projects</span>
 				</a>
 				<a href="/cheatsheet" class="btn bg-gradient-to-br variant-gradient-primary-secondary mr-4">
