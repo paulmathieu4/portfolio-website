@@ -35,19 +35,19 @@
 				<strong class="text-xl uppercase">Paul's Portfolio</strong>
 			</svelte:fragment>
 			<div class="flex justify-center">
-				<a href="/presentation" class="btn bg-gradient-to-br variant-gradient-primary-secondary mr-4">
+				<a href="/presentation" class="btn variant-filled-primary mr-4">
 					<MaterialSymbolsAccountCircleFull/>
 					<span>About me</span>
 				</a>
-				<a href="/skills" class="btn bg-gradient-to-br variant-gradient-primary-secondary mr-4">
+				<a href="/skills" class="btn variant-filled-primary mr-4">
 					<GameIconsSkills/>
 					<span>My skills</span>
 				</a>
-				<a href="/projects" class="btn bg-gradient-to-br variant-gradient-primary-secondary mr-4">
+				<a href="/projects" class="btn variant-filled-primary mr-4">
 					<StreamlineUltimateCodingAppsWebsiteAppsBrowserBold/>
 					<span>My projects</span>
 				</a>
-				<a href="/cheatsheet" class="btn bg-gradient-to-br variant-gradient-primary-secondary mr-4">
+				<a href="/cheatsheet" class="btn variant-filled-primary mr-4">
 					<span>(icon)</span>
 					<span>CheatSheet</span>
 				</a>
