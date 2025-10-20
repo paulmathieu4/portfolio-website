@@ -8,3 +8,16 @@
 
 /*To activate dark mode be setting the "dark" class*/
 @custom-variant dark (&:where(.dark, .dark *));
+
+.preset-page-title {
+    @apply h1 mt-4 mb-6
+}
+
+.preset-nice-paragraph {
+    @apply p-6 text-lg leading-relaxed text-justify indent-6
+}
+
+.preset-content-width {
+    @apply mx-auto;
+    max-width: 1000px;
+}
