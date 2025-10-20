@@ -36,3 +36,9 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+> 
+
+## How to use Icon
+
+Go to https://icones.js.org and find an icon
+Then copy the snippet "Unplugin Icons" and use it in the code

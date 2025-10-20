@@ -6,8 +6,8 @@
 <div class="preset-content-width">
     <div class="flex flex-row justify-between gap-x-4">
         <div class="m-6">
-            <h1 class="h1">Greetings, I am<br/> Paul MATHIEU</h1>
-            <div class="flex align-middle mt-4">
+            <h1 class="preset-page-title">Greetings, I am<br/> Paul MATHIEU</h1>
+            <div class="flex align-middle">
                 <MingcuteMapPinFill class="w-8 h-8 text-red-500"/>
                 <span class="inline-block text-2xl ml-4">Nice, France</span>
             </div>
