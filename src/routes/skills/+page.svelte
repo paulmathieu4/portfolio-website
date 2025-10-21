@@ -15,6 +15,7 @@
     } from 'chart.js';
     import {type Skill, SkillArea, skills} from './skills.data';
     import {onMount} from 'svelte';
+    import SoftSkillRing from "./components/SoftSkillRing.svelte";
 
     ChartJS.register(
         Title,
@@ -201,6 +202,14 @@
                     <canvas bind:this={chartCanvas}></canvas>
                 </div>
             </div>
+        </article>
+    </div>
+    <div
+            class="card preset-filled-surface-100-900 border-[1px]  border-surface-200-800 divide-surface-200-800 block divide-y overflow-hidden"
+    >
+        <article class="space-y-4 p-4">
+            <h2 class="h2 text-center">My soft skills</h2>
+            <SoftSkillRing/>
         </article>
     </div>
 </div>
