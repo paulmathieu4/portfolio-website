@@ -6,10 +6,10 @@ export interface Skill {
 }
 
 export enum SkillArea {
-    Frontend = "frontend",
-    Backend = "backend",
-    General = "general",
-    Database = "database"
+    Frontend = "Front-end",
+    Backend = "Back-end",
+    General = "General",
+    Database = "Databases"
 }
 
 export const skills: Skill[] = [

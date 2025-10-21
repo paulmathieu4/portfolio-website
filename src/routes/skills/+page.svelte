@@ -41,30 +41,30 @@
     let activeSkillFilter = 'All';
 
     // Data for the radar chart
-    const data = {
+    const chartData = {
         labels: skillsSortedByArea.map((skill: Skill) => skill.name),
         datasets: [
             {
-                label: 'Front-end',
+                label: SkillArea.Frontend,
                 borderColor: '#ec4899',
                 backgroundColor: 'rgba(236,72,153,0.4)',
                 data: frontendChartData,
                 fill: true,
             },
             {
-                label: 'Back-end',
+                label: SkillArea.Backend,
                 borderColor: '#32387B',
                 backgroundColor: 'rgba(50,56,123,0.4)',
                 data: backendChartData,
                 fill: true,
             }, {
-                label: 'Databases',
+                label: SkillArea.Database,
                 borderColor: '#327b41',
                 backgroundColor: 'rgba(50,123,65,0.4)',
                 data: databaseChartData,
                 fill: true,
             }, {
-                label: 'General',
+                label: SkillArea.General,
                 borderColor: '#7b3232',
                 backgroundColor: 'rgba(123,50,50,0.4)',
                 data: generalTechChartData,
@@ -87,6 +87,10 @@
                 text: 'Technical Skills',
                 display: true,
             },
+            legend: {
+                onClick: null // This disables the native filtering on legend click to prevent conflict with our filtering
+            }
+
         }
     };
 
@@ -115,26 +119,46 @@
         return [...skill].join(' ');
     }
 
+    let chart: ChartJS;
+
     onMount(() => {
         if (chartCanvas) {
-            new ChartJS(chartCanvas, {
+            chart = new ChartJS(chartCanvas, {
                 type: 'radar',
-                data,
+                data: chartData,
                 options: radarChartOptions
             });
         }
     });
 
+    // Update the filterByArea function to handle the chart
     function filterByArea(area: string) {
         activeSkillFilter = area;
-
+        
         if (area === 'All') {
             sortedSkillsByLevel = [...skills].sort((a, b) => b.level - a.level);
+            // Show all datasets
+            if (chart) {
+                chart.data.datasets.forEach(dataset => {
+                    dataset.hidden = false;
+                });
+            }
         } else {
             sortedSkillsByLevel = [...skills]
                 .filter(skill => skill.area.toLowerCase() === area.toLowerCase())
                 .sort((a, b) => b.level - a.level);
+        
+        // Hide all datasets except the selected one
+            if (chart) {
+                chart.data.datasets.forEach(dataset => {
+                    const datasetLabel = dataset.label?.toLowerCase() || '';
+                    dataset.hidden = !datasetLabel.includes(area.toLowerCase());
+                });
+            }
         }
+        
+        // Update the chart
+        chart?.update();
     }
 </script>
 
