@@ -1,16 +1,17 @@
 <script lang="ts">
     import GameIconsSkills from '~icons/game-icons/skills'
     import MaterialSymbolsFilterAlt from '~icons/material-symbols/filter-alt'
-    import { Progress } from '@skeletonlabs/skeleton-svelte';
+    import {Progress} from '@skeletonlabs/skeleton-svelte';
     import {
         Chart as ChartJS,
+        Filler,
+        Legend,
+        LineElement,
+        PointElement,
+        RadarController,
+        RadialLinearScale,
         Title,
         Tooltip,
-        Legend,
-        PointElement,
-        RadialLinearScale,
-        LineElement,
-        Filler, RadarController,
     } from 'chart.js';
     import {type Skill, SkillArea, skills} from './skills.data';
     import {onMount} from 'svelte';
@@ -32,15 +33,16 @@
     let generalTechChartData: (number | null)[] = [...frontendChartData];
     let chartCanvas: HTMLCanvasElement;
 
+    let skillsSortedByArea = [...skills].sort((a, b) => a.area.localeCompare(b.area));
     initializeTechnicalSkillsChartData();
 
-    let sortedSkills = skills.sort((a, b) => b.level - a.level);
+    let sortedSkillsByLevel = skills.sort((a, b) => b.level - a.level);
     let allSkillFilters = ['All', ...Object.values(SkillArea)];
     let activeSkillFilter = 'All';
 
     // Data for the radar chart
     const data = {
-        labels: skills.map((skill: Skill) => skill.name),
+        labels: skillsSortedByArea.map((skill: Skill) => skill.name),
         datasets: [
             {
                 label: 'Front-end',
@@ -73,7 +75,7 @@
 
     const radarChartOptions = {
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false,
         scales: {
             r: {
                 suggestedMin: 1,
@@ -84,28 +86,23 @@
             title: {
                 text: 'Technical Skills',
                 display: true,
-            }
+            },
         }
     };
 
     function initializeTechnicalSkillsChartData() {
-        frontendChartData = Array.from({length: skills.length}, () => null);
-        backendChartData = [...frontendChartData];
-        databaseChartData = [...frontendChartData];
-        generalTechChartData = [...frontendChartData];
-
-        for (let i = 0; i < skills.length; i++) {
-            const currentSkill = skills[i];
-            if (currentSkill.areas.includes('frontend')) {
+        for (let i = 0; i < skillsSortedByArea.length; i++) {
+            const currentSkill = skillsSortedByArea[i];
+            if (currentSkill.area === SkillArea.Frontend) {
                 frontendChartData[i] = currentSkill.level;
             }
-            if (currentSkill.areas.includes('backend')) {
+            if (currentSkill.area === SkillArea.Backend) {
                 backendChartData[i] = currentSkill.level;
             }
-            if (currentSkill.areas.includes('database')) {
+            if (currentSkill.area === SkillArea.Database) {
                 databaseChartData[i] = currentSkill.level;
             }
-            if (currentSkill.areas.includes('general')) {
+            if (currentSkill.area === SkillArea.General) {
                 generalTechChartData[i] = currentSkill.level;
             }
         }
@@ -128,16 +125,26 @@
         }
     });
 
+    function filterByArea(area: string) {
+        activeSkillFilter = area;
+
+        if (area === 'All') {
+            sortedSkillsByLevel = [...skills].sort((a, b) => b.level - a.level);
+        } else {
+            sortedSkillsByLevel = [...skills]
+                .filter(skill => skill.area.toLowerCase() === area.toLowerCase())
+                .sort((a, b) => b.level - a.level);
+        }
+    }
 </script>
 
-<div>
-
+<div class="preset-content-width">
     <h1 class="preset-page-title text-center">
         <GameIconsSkills class="inline"/>
         My Skills
     </h1>
     <div
-            class="card preset-filled-surface-100-900 border-[1px]  border-surface-200-800 card-hover divide-surface-200-800 block divide-y overflow-hidden"
+            class="card preset-filled-surface-100-900 border-[1px]  border-surface-200-800 divide-surface-200-800 block divide-y overflow-hidden"
     >
         <article class="space-y-4 p-4">
             <h2 class="h2 text-center">My technical skills</h2>
@@ -145,28 +152,28 @@
             >
                 <label for="filter-button-group">
                     Filter by type :</label>
-                <div id="filter-button-group" class=" preset-tonal-primary border border-primary-500">
+                <nav id="filter-button-group" class="btn-group preset-outlined-surface-200-800 flex-col p-2 md:flex-row">
                     {#each allSkillFilters as skillsArea}
-                        <button class="{activeSkillFilter === skillsArea ? 'selected-filter preset-filled-primary-500' : ''}">
+                        <button on:click={() => filterByArea(skillsArea)} type="button" class="btn {activeSkillFilter === skillsArea ? 'preset-filled-primary-500 selected-filter' : 'hover:preset-tonal'}">
                             <MaterialSymbolsFilterAlt/>{skillsArea}</button>
                     {/each}
-                </div>
+                </nav>
             </div>
-
-            {#each sortedSkills as skill}
+            {#each sortedSkillsByLevel as skill}
                 <div class="flex items-center space-x-2">
+                    <!-- svelte-ignore hydration_attribute_changed -->
                     <img src={skill.iconUrl} alt="skill icon" class="w-6 h-6 "/>
                     <span class="w-80">{formatSkillName(skill.name)}</span>
 
                     <Progress value={skill.level} max={10} class="w-full">
                         <Progress.Track>
-                            <Progress.Range class="bg-primary-500" />
+                            <Progress.Range class="bg-primary-500"/>
                         </Progress.Track>
                     </Progress>
                 </div>
             {/each}
-            <div class="chart-container flex-1" style="height: 800px; width: 800px;">
-                <div class="mx-auto" style="position: relative;">
+            <div class="chart-container flex-1 mx-auto">
+                <div>
                     <canvas bind:this={chartCanvas}></canvas>
                 </div>
             </div>
@@ -180,6 +187,15 @@
         border-radius: 1rem;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         padding: 1rem;
+        width: 100%;
+        max-width: 600px;
+        height: 600px;
+        position: relative;
+
+        canvas {
+            width: 100%;
+            height: 100%;
+        }
     }
 
     .selected-filter {
