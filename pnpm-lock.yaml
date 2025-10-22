@@ -376,6 +376,34 @@ packages:
   '@polka/url@1.0.0-next.29':
     resolution: {integrity: sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==}
 
+  '@redis/bloom@5.8.3':
+    resolution: {integrity: sha512-1eldTzHvdW3Oi0TReb8m1yiFt8ZwyF6rv1NpZyG5R4TpCwuAdKQetBKoCw7D96tNFgsVVd6eL+NaGZZCqhRg4g==}
+    engines: {node: '>= 18'}
+    peerDependencies:
+      '@redis/client': ^5.8.3
+
+  '@redis/client@5.8.3':
+    resolution: {integrity: sha512-MZVUE+l7LmMIYlIjubPosruJ9ltSLGFmJqsXApTqPLyHLjsJUSAbAJb/A3N34fEqean4ddiDkdWzNu4ZKPvRUg==}
+    engines: {node: '>= 18'}
+
+  '@redis/json@5.8.3':
+    resolution: {integrity: sha512-DRR09fy/u8gynHGJ4gzXYeM7D8nlS6EMv5o+h20ndTJiAc7RGR01fdk2FNjnn1Nz5PjgGGownF+s72bYG4nZKQ==}
+    engines: {node: '>= 18'}
+    peerDependencies:
+      '@redis/client': ^5.8.3
+
+  '@redis/search@5.8.3':
+    resolution: {integrity: sha512-EMIvEeGRR2I0BJEz4PV88DyCuPmMT1rDtznlsHY3cKSDcc9vj0Q411jUnX0iU2vVowUgWn/cpySKjpXdZ8m+5g==}
+    engines: {node: '>= 18'}
+    peerDependencies:
+      '@redis/client': ^5.8.3
+
+  '@redis/time-series@5.8.3':
+    resolution: {integrity: sha512-5Jwy3ilsUYQjzpE7WZ1lEeG1RkqQ5kHtwV1p8yxXHSEmyUbC/T/AVgyjMcm52Olj/Ov/mhDKjx6ndYUi14bXsw==}
+    engines: {node: '>= 18'}
+    peerDependencies:
+      '@redis/client': ^5.8.3
+
   '@rollup/rollup-android-arm-eabi@4.52.5':
     resolution: {integrity: sha512-8c1vW4ocv3UOMp9K+gToY5zL2XiiVw3k7f1ksf4yO1FlDFQ1C2u72iACFnSOceJFsWskc2WZNqeRhFRPzv+wtQ==}
     cpu: [arm]
@@ -900,6 +928,10 @@ packages:
   clsx@2.1.1:
     resolution: {integrity: sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==}
     engines: {node: '>=6'}
+
+  cluster-key-slot@1.1.2:
+    resolution: {integrity: sha512-RMr0FhtfXemyinomL4hrWcYJxmX6deFdCxpJzhDttxgO1+bcCnkk+9drydLVDmAMG7NE6aN/fl4F7ucU/90gAA==}
+    engines: {node: '>=0.10.0'}
 
   color-convert@2.0.1:
     resolution: {integrity: sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==}
@@ -1488,6 +1520,13 @@ packages:
     resolution: {integrity: sha512-GDhwkLfywWL2s6vEjyhri+eXmfH6j1L7JE27WhqLeYzoh/A3DBaYGEj2H/HFZCn/kMfim73FXxEJTw06WtxQwg==}
     engines: {node: '>= 14.18.0'}
 
+  redis-url@0.2.0:
+    resolution: {integrity: sha512-4HyF3QI0vbmXAMRudLIxnaz/sUGzTEmHBV5swe2keie1ynCrJbCnraDmwrEncI6F0BQz8t2ivYrEZ0Wrq77Yjg==}
+
+  redis@5.8.3:
+    resolution: {integrity: sha512-MfSrfV6+tEfTw8c4W0yFp6XWX8Il4laGU7Bx4kvW4uiYM1AuZ3KGqEGt1LdQHeD1nEyLpIWetZ/SpY3kkbgrYw==}
+    engines: {node: '>= 18'}
+
   resolve-from@4.0.0:
     resolution: {integrity: sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==}
     engines: {node: '>=4'}
@@ -1531,6 +1570,9 @@ packages:
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
     engines: {node: '>=0.10.0'}
+
+  src@1.1.2:
+    resolution: {integrity: sha512-xOKk/hC+DMAWZVEu0zf/1y2vegH1dQD2W2jldxpFCAnavfrK8IPwECKw5ZDcxhd3+kmzaVyPECMAYVy2WDV9YQ==}
 
   strip-json-comments@3.1.1:
     resolution: {integrity: sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==}
@@ -1611,6 +1653,9 @@ packages:
   ufo@1.6.1:
     resolution: {integrity: sha512-9a4/uxlTWJ4+a5i0ooc1rU7C7YOw3wT+UGqdeNNHWnOF9qcMBgLRS+4IYUqbczewFx4mLEig6gawh7X6mFlEkA==}
 
+  underscore@1.6.0:
+    resolution: {integrity: sha512-z4o1fvKUojIWh9XuaVLUDdf86RQiq13AC1dmHbTpoyuu+bquHms76v16CjycCbec87J7z0k//SiQVk0sMdFmpQ==}
+
   undici-types@6.21.0:
     resolution: {integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==}
 
@@ -1646,6 +1691,10 @@ packages:
 
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
+
+  uuid@1.4.2:
+    resolution: {integrity: sha512-woV5Ei+GBJyrqMXt0mJ9p8/I+47LYKp/4urH76FNTMjl22EhLPz1tNrQufTsrFf/PYV/7ctSZYAK7fKPWQKg+Q==}
+    deprecated: Please upgrade to version 7 or higher.  Older versions may use Math.random() in certain circumstances, which is known to be problematic.  See https://v8.dev/blog/math-random for details.
 
   uuid@11.1.0:
     resolution: {integrity: sha512-0/A9rDy9P7cJ+8w1c9WD9V//9Wj15Ce2MPz8Ri6032usz+NfePxx5AcN3bN+r6ZL6jEo066/yNYB3tn4pQEx+A==}
@@ -1946,6 +1995,26 @@ snapshots:
       fastq: 1.19.1
 
   '@polka/url@1.0.0-next.29': {}
+
+  '@redis/bloom@5.8.3(@redis/client@5.8.3)':
+    dependencies:
+      '@redis/client': 5.8.3
+
+  '@redis/client@5.8.3':
+    dependencies:
+      cluster-key-slot: 1.1.2
+
+  '@redis/json@5.8.3(@redis/client@5.8.3)':
+    dependencies:
+      '@redis/client': 5.8.3
+
+  '@redis/search@5.8.3(@redis/client@5.8.3)':
+    dependencies:
+      '@redis/client': 5.8.3
+
+  '@redis/time-series@5.8.3(@redis/client@5.8.3)':
+    dependencies:
+      '@redis/client': 5.8.3
 
   '@rollup/rollup-android-arm-eabi@4.52.5':
     optional: true
@@ -2617,6 +2686,8 @@ snapshots:
 
   clsx@2.1.1: {}
 
+  cluster-key-slot@1.1.2: {}
+
   color-convert@2.0.1:
     dependencies:
       color-name: 1.1.4
@@ -3108,6 +3179,18 @@ snapshots:
 
   readdirp@4.1.2: {}
 
+  redis-url@0.2.0:
+    dependencies:
+      redis: 5.8.3
+
+  redis@5.8.3:
+    dependencies:
+      '@redis/bloom': 5.8.3(@redis/client@5.8.3)
+      '@redis/client': 5.8.3
+      '@redis/json': 5.8.3(@redis/client@5.8.3)
+      '@redis/search': 5.8.3(@redis/client@5.8.3)
+      '@redis/time-series': 5.8.3(@redis/client@5.8.3)
+
   resolve-from@4.0.0: {}
 
   reusify@1.1.0: {}
@@ -3165,6 +3248,12 @@ snapshots:
       totalist: 3.0.1
 
   source-map-js@1.2.1: {}
+
+  src@1.1.2:
+    dependencies:
+      redis-url: 0.2.0
+      underscore: 1.6.0
+      uuid: 1.4.2
 
   strip-json-comments@3.1.1: {}
 
@@ -3254,6 +3343,8 @@ snapshots:
 
   ufo@1.6.1: {}
 
+  underscore@1.6.0: {}
+
   undici-types@6.21.0: {}
 
   unplugin-icons@22.5.0(svelte@5.41.1):
@@ -3280,6 +3371,8 @@ snapshots:
       punycode: 2.3.1
 
   util-deprecate@1.0.2: {}
+
+  uuid@1.4.2: {}
 
   uuid@11.1.0: {}
 
