@@ -16,6 +16,7 @@
     import {type Skill, SkillArea, skills} from './skills.data';
     import {onMount} from 'svelte';
     import SoftSkillRing from "./components/SoftSkillRing.svelte";
+    import SkillsCard from "./components/SkillsCard.svelte";
 
     ChartJS.register(
         Title,
@@ -168,50 +169,41 @@
         <GameIconsSkills class="inline"/>
         My Skills
     </h1>
-    <div
-            class="card preset-filled-surface-100-900 border-[1px]  border-surface-200-800 divide-surface-200-800 block divide-y overflow-hidden"
-    >
-        <article class="space-y-4 p-4">
-            <h2 class="h2 text-center">My technical skills</h2>
-            <div class="flex items-center justify-center space-x-4"
-            >
-                <label for="filter-button-group">
-                    Filter by type :</label>
-                <nav id="filter-button-group" class="btn-group preset-outlined-surface-200-800 flex-col p-2 md:flex-row">
-                    {#each allSkillFilters as skillsArea}
-                        <button on:click={() => filterByArea(skillsArea)} type="button" class="btn {activeSkillFilter === skillsArea ? 'preset-filled-primary-500 selected-filter' : 'hover:preset-tonal'}">
-                            <MaterialSymbolsFilterAlt/>{skillsArea}</button>
-                    {/each}
-                </nav>
-            </div>
-            {#each sortedSkillsByLevel as skill}
-                <div class="flex items-center space-x-2">
-                    <!-- svelte-ignore hydration_attribute_changed -->
-                    <img src={skill.iconUrl} alt="skill icon" class="w-6 h-6 "/>
-                    <span class="w-80">{formatSkillName(skill.name)}</span>
+    <SkillsCard title="My technical skills">
+        <div class="flex items-center justify-center space-x-4"
+        >
+            <label for="filter-button-group">
+                Filter by type :</label>
+            <nav id="filter-button-group" class="btn-group preset-outlined-surface-200-800 flex-col p-2 md:flex-row">
+                {#each allSkillFilters as skillsArea}
+                    <button on:click={() => filterByArea(skillsArea)} type="button" class="btn {activeSkillFilter === skillsArea ? 'preset-filled-primary-500 selected-filter' : 'hover:preset-tonal'}">
+                        <MaterialSymbolsFilterAlt/>{skillsArea}</button>
+                {/each}
+            </nav>
+        </div>
+        {#each sortedSkillsByLevel as skill}
+            <div class="flex items-center space-x-2">
+                <!-- svelte-ignore hydration_attribute_changed -->
+                <img src={skill.iconUrl} alt="skill icon" class="w-6 h-6 "/>
+                <span class="w-80">{formatSkillName(skill.name)}</span>
 
-                    <Progress value={skill.level} max={10} class="w-full">
-                        <Progress.Track>
-                            <Progress.Range class="bg-primary-500"/>
-                        </Progress.Track>
-                    </Progress>
-                </div>
-            {/each}
-            <div class="chart-container flex-1 mx-auto">
-                <div>
-                    <canvas bind:this={chartCanvas}></canvas>
-                </div>
+                <Progress value={skill.level} max={10} class="w-full">
+                    <Progress.Track>
+                        <Progress.Range class="bg-primary-500"/>
+                    </Progress.Track>
+                </Progress>
             </div>
-        </article>
-    </div>
-    <div
-            class="card mt-8 preset-filled-surface-100-900 border-[1px]  border-surface-200-800 divide-surface-200-800 block divide-y overflow-hidden"
-    >
-        <article class="space-y-4 p-4">
-            <h2 class="h2 text-center">My soft skills</h2>
-            <SoftSkillRing/>
-        </article>
-    </div>
+        {/each}
+        <div class="chart-container flex-1 mx-auto">
+            <div>
+                <canvas bind:this={chartCanvas}></canvas>
+            </div>
+        </div>
+    </SkillsCard>
+
+    <SkillsCard title="My soft skills" class="mt-8">
+        <SoftSkillRing/>
+    </SkillsCard>
 </div>
 
 <style>
