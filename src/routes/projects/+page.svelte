@@ -134,23 +134,43 @@
         <StreamlineUltimateCodingAppsWebsiteAppsBrowserBold class="inline" />
         My Projects
     </h1>
-
-    <div class="sphere-container" bind:this={container}>
-        <div class="sphere" bind:this={sphere}>
-            {#each logos as logo (logo)}
-                <div class="logo-wrapper">
-                    <img src={logo} alt="Client logo" class="logo" />
+    <div class="grid grid-cols-2 gap-4">
+        <div class="card p-4 preset-tonal-primary">
+            <article class="space-y-4 p-4">
+                <div>
+                    <h2 class="preset-typo-subtitle">Overview</h2>
                 </div>
-            {/each}
+                <div class="flex flex-nowrap justify-between">
+                    <h3 class="font-bold">Number of projects :</h3>
+                    <div>13</div>
+                </div>
+                <div class="flex flex-nowrap justify-between">
+                    <h3 class="font-bold">Most used technologies :</h3>
+                    <div>Angular (8), Vuejs (5)</div>
+                </div>
+            </article>
+        </div>
+        <div class="card p-4 bg-white">
+            <div class="sphere-container" bind:this={container}>
+                <div class="sphere" bind:this={sphere}>
+                    {#each logos as logo (logo)}
+                        <div class="logo-wrapper">
+                            <img src={logo} alt="Client logo" class="logo" />
+                        </div>
+                    {/each}
+                </div>
+            </div>
         </div>
     </div>
+
+
 </div>
 
 <style lang="postcss">
     @reference "../../app.css";
 
     .sphere-container {
-        @apply h-[400px] relative flex items-center justify-center my-12;
+        @apply h-[300px] relative flex items-center justify-center my-12;
         /* Perspective helps depth feel even with the manual scale projection */
         perspective: 1000px;
         cursor: grab;
