@@ -1,6 +1,7 @@
 <script lang="ts">
     import '../app.css';
     import {AppBar} from '@skeletonlabs/skeleton-svelte';
+    import { page } from '$app/state';
     import MaterialSymbolsAccountCircleFull from '~icons/material-symbols/account-circle-full'
     import GameIconsSkills from '~icons/game-icons/skills'
     import StreamlineUltimateCodingAppsWebsiteAppsBrowserBold
@@ -16,24 +17,16 @@
                 <AppBar.Headline>
                     <p class="text-2xl">Paul's Portfolio</p>
                 </AppBar.Headline>
-                <AppBar.Trail>
-                    <a href="/presentation" class="btn btn-lg preset-filled-primary-500 mr-4">
-                        <MaterialSymbolsAccountCircleFull/>
-                        <span>About me</span>
-                    </a>
-                    <a href="/skills" class="btn btn-lg preset-filled-primary-500 mr-4">
-                        <GameIconsSkills/>
-                        <span>My skills</span>
-                    </a>
-                    <a href="/projects" class="btn btn-lg preset-filled-primary-500 mr-4">
-                        <StreamlineUltimateCodingAppsWebsiteAppsBrowserBold/>
-                        <span>My projects</span>
-                    </a>
-                    <a href="/cheatsheet" class="btn btn-lg preset-filled-primary-500 mr-4">
-                        <span>(icon)</span>
-                        <span>CheatSheet</span>
-                    </a>
-                </AppBar.Trail>
+                <AppBar.Headline class="flex justify-center">
+                    <nav class="btn-group preset-outlined-surface-200-800 flex-col p-2 md:flex-row">
+                        <a href="/presentation" type="button" class="btn btn-lg {page.url.pathname === '/presentation' ? 'preset-filled-primary-500' : 'preset-outlined-primary-500'}"><MaterialSymbolsAccountCircleFull/>
+                            <span>About me</span></a>
+                        <a href="/skills" type="button" class="btn btn-lg {page.url.pathname === '/skills' ? 'preset-filled-primary-500' : 'preset-outlined-primary-500'}"> <GameIconsSkills/>
+                            <span>My skills</span></a>
+                        <a href="/projects" type="button" class="btn btn-lg {page.url.pathname === '/projects' ? 'preset-filled-primary-500' : 'preset-outlined-primary-500'}"><StreamlineUltimateCodingAppsWebsiteAppsBrowserBold/>
+                            <span>My projects</span></a>
+                    </nav>
+                </AppBar.Headline>
             </AppBar.Toolbar>
         </AppBar>
     </header>
