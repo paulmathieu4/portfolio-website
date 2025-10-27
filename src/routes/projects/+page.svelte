@@ -2,6 +2,21 @@
 	import StreamlineUltimateCodingAppsWebsiteAppsBrowserBold from '~icons/streamline-ultimate/coding-apps-website-apps-browser-bold';
 	import { onMount, onDestroy } from 'svelte';
 	import { projects } from './projets.data';
+	import Carousel from './components/Carousel.svelte';
+	
+
+	// Function to format project dates and calculate duration
+	function formatProjectDates(startDate: Date, endDate: Date): string {
+		const startMonth = startDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+		const endMonth = endDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+		
+		// Calculate duration in months
+		const yearDiff = endDate.getFullYear() - startDate.getFullYear();
+		const monthDiff = endDate.getMonth() - startDate.getMonth();
+		const totalMonths = yearDiff * 12 + monthDiff;
+		
+		return `${startMonth} - ${endMonth} (${totalMonths} months)`;
+	}
 
 	// Logo paths from static folder
 	const logos = [
@@ -177,27 +192,22 @@
 			<div
 				class="block max-w-[600px] divide-y divide-surface-800 overflow-hidden card border-[1px] border-surface-200-800 preset-filled-primary-500"
 			>
-				<header>
-					<img
-						src={project.imageUrls?.[0]}
-						class="aspect-[21/9] w-full grayscale hue-rotate-90"
-						alt="banner"
-					/>
-				</header>
 				<article class="space-y-4 py-4">
 					<div>
                         <div class="px-4">
-
-                            <h3 class="mb-4 text-center h3">{project.title}</h3>
-                            <div class="mb-2 flex flex-nowrap items-center justify-center gap-2">
-                                <img src={project.clientLogoUrl} class="h-12 max-w-[180px]" alt="client logo" />
-                                <h2 class="text-center h6 italic">- {project.clientName}</h2>
-                            </div>
+                            <h3 class="mb-2 text-center h3">{project.title}</h3><div class="mb-2 text-center">
+								<p class="italic">{formatProjectDates(project.startDate, project.endDate)}</p>
+							</div>
                         </div>
-						<hr class="my-2 hr" />
+						<hr class="mt-2 mb-4 hr" />
+						
+						<div class="mb-2 flex flex-nowrap items-center justify-center gap-2">
+							<img src={project.clientLogoUrl} class="h-12 max-w-[180px]" alt="client logo" />
+							<h2 class="text-center h6 italic">- {project.clientName}</h2>
+						</div>
 						<div class="grid grid-cols-2 gap-2 px-4">
 							<div>
-								<div class="text-xl">My roles :</div>
+								<div class="card-subtitle">My roles :</div>
 								<div class="flex items-center justify-start gap-2">
 									{#each project.roles as role}
 										<span class="badge preset-filled-tertiary-500">{role}</span>
@@ -205,7 +215,7 @@
 								</div>
 							</div>
 							<div>
-								<div class="text-xl">Tags :</div>
+								<div class="card-subtitle">Tags :</div>
 								<div class="flex items-center justify-start gap-2">
 									{#each project.tags as tag}
 										<span class="badge preset-filled-secondary-500">{tag}</span>
@@ -217,7 +227,8 @@
 					<hr class="hr" />
                     <div class="px-4 text-justify">
                         <p class="mb-2">
-                            {project.description}
+                            <span class="card-subtitle mr-2">Context :</span>{project.context}
+							<span class="card-subtitle mr-2">Description :</span>{project.description}
                         </p>
                         <ul class="list-inside list-disc">
                             {#each project.activities as activity}
@@ -226,10 +237,11 @@
                         </ul>
                     </div>
 				</article>
-				<footer class="flex items-center justify-between gap-4 p-4">
-					<small class="opacity-60">By Alex</small>
-					<small class="opacity-60">On {new Date().toLocaleDateString()}</small>
-				</footer>
+				{#if project.imageUrls && project.imageUrls.length > 0}
+					<footer class="flex items-center justify-between gap-4 p-4">
+						<Carousel imageUrls={project.imageUrls ?? []} />
+					</footer>
+				{/if}
 			</div>
 		{/each}
 	</div>
@@ -237,6 +249,10 @@
 
 <style lang="postcss">
 	@reference "../../app.css";
+
+	.card-subtitle {
+		@apply text-lg font-semibold;
+	}
 
 	.circle-card {
 		@apply flex items-center justify-center rounded-full;
