@@ -1,7 +1,7 @@
 <script lang="ts">
 	import StreamlineUltimateCodingAppsWebsiteAppsBrowserBold from '~icons/streamline-ultimate/coding-apps-website-apps-browser-bold';
 	import { onMount, onDestroy } from 'svelte';
-	import { projects } from './projets.data';
+	import { projects, ProjectTag, type Project } from './projets.data';
 	import Carousel from './components/Carousel.svelte';
 	
 
@@ -18,6 +18,54 @@
 		return `${startMonth} - ${endMonth} (${totalMonths} months)`;
 	}
 
+	// Function to calculate duration in months
+	function calculateMonthDuration(startDate: Date, endDate: Date): number {
+		const yearDiff = endDate.getFullYear() - startDate.getFullYear();
+		const monthDiff = endDate.getMonth() - startDate.getMonth();
+		// Calculate total months difference
+		let totalMonths = yearDiff * 12 + monthDiff;
+		// Add 1 to include both start and end months (e.g., Jan to Mar = 3 months)
+		totalMonths += 1;
+		return totalMonths;
+	}
+
+	// Calculate tag statistics
+	type TagStats = {
+		tag: string;
+		projectCount: number;
+		totalMonths: number;
+	};
+
+	function getTopTags(): TagStats[] {
+		const tagMap = new Map<ProjectTag, { projectCount: number; totalMonths: number }>();
+
+		projects.forEach((project) => {
+			const duration = calculateMonthDuration(project.startDate, project.endDate);
+			project.tags.forEach((tag) => {
+				const stats = tagMap.get(tag) || { projectCount: 0, totalMonths: 0 };
+				stats.projectCount += 1;
+				stats.totalMonths += duration;
+				tagMap.set(tag, stats);
+			});
+		});
+
+		const tagStats: TagStats[] = Array.from(tagMap.entries()).map(([tag, stats]) => ({
+			tag,
+			projectCount: stats.projectCount,
+			totalMonths: stats.totalMonths
+		}));
+
+		// Sort by project count (descending), then by total months (descending)
+		tagStats.sort((a, b) => {
+			return b.totalMonths - a.totalMonths;
+		});
+
+		// Return top 8
+		return tagStats.filter(tagStat => ![ProjectTag.Frontend, ProjectTag.Backend].includes(tagStat.tag as ProjectTag)).slice(0, 8);
+	}
+
+	const topTags = getTopTags();
+
 	// Logo paths from static folder
 	const logos = [
 		'/client-logos/accenture.png',
@@ -30,7 +78,8 @@
 		'/client-logos/engie.png',
 		'/client-logos/mane.png',
 		'/client-logos/Mercedes_Benz_logo_2011.svg',
-		'/client-logos/naval group svg.png'
+		'/client-logos/naval group svg.png',
+		'/client-logos/septeo proptech.png'
 	];
 
 	let sphere: HTMLDivElement;
@@ -159,35 +208,44 @@
 		<StreamlineUltimateCodingAppsWebsiteAppsBrowserBold class="inline" />
 		My Projects
 	</h1>
-	<div class="grid grid-cols-2 gap-4">
-		<div class="card preset-tonal-primary p-4">
+	<div class="card preset-tonal-primary p-4 grid grid-cols-[repeat(auto-fit,minmax(400px,1fr))] gap-8">
+		<div>
 			<article class="space-y-4 p-4">
 				<div>
 					<h2 class="preset-typo-subtitle">Overview</h2>
 				</div>
 				<div class="flex flex-nowrap justify-between">
 					<h3 class="font-bold">Number of projects :</h3>
-					<div>13</div>
+					<div>{projects.length}</div>
 				</div>
-				<div class="flex flex-nowrap justify-between">
+				<div class="flex flex-col gap-2">
 					<h3 class="font-bold">Most used technologies :</h3>
-					<div>Angular (8), Vuejs (5)</div>
+					<div class="flex flex-wrap items-center justify-start gap-2">
+						{#each topTags as tagStats}
+							<span class="badge preset-filled-secondary-500">
+								{tagStats.tag} ({tagStats.projectCount} {tagStats.projectCount === 1 ? 'project' : 'projects'}, {tagStats.totalMonths} {tagStats.totalMonths === 1 ? 'month' : 'months'})
+							</span>
+						{/each}
+					</div>
 				</div>
 			</article>
 		</div>
-		<div class="circle-card bg-white">
-			<div class="sphere-container" bind:this={container}>
-				<div class="sphere" bind:this={sphere}>
-					{#each logos as logo (logo)}
-						<div class="logo-wrapper">
-							<img src={logo} alt="Client logo" class="logo" />
-						</div>
-					{/each}
+		<div class="flex justify-center items-center">
+			<div class="circle-card bg-white">
+				<div class="sphere-container" bind:this={container}>
+					<div class="sphere" bind:this={sphere}>
+						{#each logos as logo (logo)}
+							<div class="logo-wrapper">
+								<img src={logo} alt="Client logo" class="logo" />
+							</div>
+						{/each}
+					</div>
 				</div>
 			</div>
 		</div>
+		
 	</div>
-	<div>
+	<div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
 		{#each projects as project}
 			<div
 				class="block max-w-[600px] divide-y divide-surface-800 overflow-hidden card border-[1px] border-surface-200-800 preset-filled-primary-500"
@@ -201,14 +259,14 @@
                         </div>
 						<hr class="mt-2 mb-4 hr" />
 						
-						<div class="mb-2 flex flex-nowrap items-center justify-center gap-2">
+						<div class="mb-2 flex flex-nowrap items-center justify-center gap-2 px-4">
 							<img src={project.clientLogoUrl} class="h-12 max-w-[180px]" alt="client logo" />
-							<h2 class="text-center h6 italic">- {project.clientName}</h2>
+							<h2 class="text-center h6 italic">{project.clientName}</h2>
 						</div>
 						<div class="grid grid-cols-2 gap-2 px-4">
 							<div>
 								<div class="card-subtitle">My roles :</div>
-								<div class="flex items-center justify-start gap-2">
+								<div class="flex flex-wrap items-center justify-start gap-2">
 									{#each project.roles as role}
 										<span class="badge preset-filled-tertiary-500">{role}</span>
 									{/each}
@@ -216,7 +274,7 @@
 							</div>
 							<div>
 								<div class="card-subtitle">Tags :</div>
-								<div class="flex items-center justify-start gap-2">
+								<div class="flex flex-wrap items-center justify-start gap-2">
 									{#each project.tags as tag}
 										<span class="badge preset-filled-secondary-500">{tag}</span>
 									{/each}
@@ -226,10 +284,10 @@
 					</div>
 					<hr class="hr" />
                     <div class="px-4 text-justify">
-                        <p class="mb-2">
-                            <span class="card-subtitle mr-2">Context :</span>{project.context}
-							<span class="card-subtitle mr-2">Description :</span>{project.description}
-                        </p>
+                        <div class="mb-2">
+                            <div class="card-subtitle mr-2">Context :</div><div>{project.context}</div>
+							<div class="card-subtitle mr-2">Description :</div><div>{project.description}</div>
+						</div>
                         <ul class="list-inside list-disc">
                             {#each project.activities as activity}
                                 <li>{activity}</li>
