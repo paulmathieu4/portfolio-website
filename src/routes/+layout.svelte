@@ -9,7 +9,9 @@
 
     let {children} = $props();
 </script>
-
+<svelte:head>
+    <title>Paul's Portfolio</title>
+</svelte:head>
 <div class="h-screen grid grid-rows-[auto_1fr_auto]">
     <header class="sticky top-0 z-10">
         <AppBar>

@@ -1,5 +1,7 @@
 <script lang="ts">
 	import StreamlineUltimateCodingAppsWebsiteAppsBrowserBold from '~icons/streamline-ultimate/coding-apps-website-apps-browser-bold';
+	import MaterialSymbolsClose from '~icons/material-symbols/close';
+	import MaterialSymbolsFilterAlt from '~icons/material-symbols/filter-alt';
 	import { onMount, onDestroy } from 'svelte';
 	import { projects, ProjectTag, type Project } from './projets.data';
 	import Carousel from './components/Carousel.svelte';
@@ -65,6 +67,33 @@
 	}
 
 	const topTags = getTopTags();
+
+	// Filter state
+	let selectedTags: ProjectTag[] = $state([]);
+	let selectedTagValue: string = $state('');
+
+	// Get all unique ProjectTag values
+	const allTags = Object.values(ProjectTag);
+
+	// Filter projects based on selected tags
+	const filteredProjects = $derived(selectedTags.length === 0 
+		? projects 
+		: projects.filter(project => 
+			selectedTags.some(tag => project.tags.includes(tag))
+		));
+
+	// Handle tag selection
+	function handleTagSelect() {
+		if (selectedTagValue && !selectedTags.includes(selectedTagValue as ProjectTag)) {
+			selectedTags = [...selectedTags, selectedTagValue as ProjectTag];
+			selectedTagValue = ''; // Reset select
+		}
+	}
+
+	// Handle tag removal
+	function removeTag(tagToRemove: ProjectTag) {
+		selectedTags = selectedTags.filter(tag => tag !== tagToRemove);
+	}
 
 	// Logo paths from static folder
 	const logos = [
@@ -208,7 +237,7 @@
 		<StreamlineUltimateCodingAppsWebsiteAppsBrowserBold class="inline" />
 		My Projects
 	</h1>
-	<div class="card preset-tonal-primary p-4 grid grid-cols-[repeat(auto-fit,minmax(400px,1fr))] gap-8">
+	<div class="card preset-filled-surface-100-900 border-[1px] border-surface-200-800 block overflow-hidden p-4 grid grid-cols-[repeat(auto-fit,minmax(400px,1fr))] gap-8">
 		<div>
 			<article class="space-y-4 p-4">
 				<div>
@@ -245,64 +274,116 @@
 		</div>
 		
 	</div>
-	<div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-		{#each projects as project}
-			<div
-				class="block max-w-[600px] divide-y divide-surface-800 overflow-hidden card border-[1px] border-surface-200-800 preset-filled-primary-500"
-			>
-				<article class="space-y-4 py-4">
-					<div>
-                        <div class="px-4">
-                            <h3 class="mb-2 text-center h3">{project.title}</h3><div class="mb-2 text-center">
-								<p class="italic">{formatProjectDates(project.startDate, project.endDate)}</p>
-							</div>
-                        </div>
-						<hr class="mt-2 mb-4 hr" />
-						
-						<div class="mb-2 flex flex-nowrap items-center justify-center gap-2 px-4">
-							<img src={project.clientLogoUrl} class="h-12 max-w-[180px]" alt="client logo" />
-							<h2 class="text-center h6 italic">{project.clientName}</h2>
-						</div>
-						<div class="grid grid-cols-2 gap-2 px-4">
-							<div>
-								<div class="card-subtitle">My roles :</div>
-								<div class="flex flex-wrap items-center justify-start gap-2">
-									{#each project.roles as role}
-										<span class="badge preset-filled-tertiary-500">{role}</span>
-									{/each}
-								</div>
-							</div>
-							<div>
-								<div class="card-subtitle">Tags :</div>
-								<div class="flex flex-wrap items-center justify-start gap-2">
-									{#each project.tags as tag}
-										<span class="badge preset-filled-secondary-500">{tag}</span>
-									{/each}
-								</div>
-							</div>
-						</div>
-					</div>
-					<hr class="hr" />
-                    <div class="px-4 text-justify">
-                        <div class="mb-2">
-                            <div class="card-subtitle mr-2">Context :</div><div>{project.context}</div>
-							<div class="card-subtitle mr-2">Description :</div><div>{project.description}</div>
-						</div>
-                        <ul class="list-inside list-disc">
-                            {#each project.activities as activity}
-                                <li>{activity}</li>
-                            {/each}
-                        </ul>
-                    </div>
-				</article>
-				{#if project.imageUrls && project.imageUrls.length > 0}
-					<footer class="flex items-center justify-between gap-4 p-4">
-						<Carousel imageUrls={project.imageUrls ?? []} />
-					</footer>
-				{/if}
+	
+	<!-- Filters Section -->
+	<div class="mt-4 card preset-filled-surface-100-900 border-[1px] border-surface-200-800 block overflow-hidden p-4">
+		<h2 class="preset-typo-subtitle mb-4">My projects</h2>
+		<div class="space-y-4">
+			<div>
+				<label for="tag-select" class="block mb-2 font-semibold">
+					<span class="inline-flex items-center">
+						<MaterialSymbolsFilterAlt class="inline mr-1" />
+						Filter by tag :
+					</span>
+				</label>
+				<select
+					id="tag-select"
+					bind:value={selectedTagValue}
+					onchange={handleTagSelect}
+					class="input preset-filled-surface-200-800 w-full max-w-md"
+				>
+					<option value="">-- Select a tag --</option>
+					{#each allTags as tag}
+						<option value={tag} disabled={selectedTags.includes(tag)}>
+							{tag}
+						</option>
+					{/each}
+				</select>
 			</div>
-		{/each}
+			{#if selectedTags.length > 0}
+				<div>
+					<div class="block mb-2 font-semibold">Active filters:</div>
+					<div class="flex flex-wrap items-center gap-2">
+						{#each selectedTags as tag}
+							<div class="badge preset-filled-secondary-500 flex items-center gap-2 px-3 py-1">
+								
+								<span>{tag}</span>
+								<button
+									type="button"
+									onclick={() => removeTag(tag)}
+									class="flex items-center justify-center hover:opacity-70 transition-opacity"
+									aria-label="Remove {tag} filter"
+								>
+								    
+									<MaterialSymbolsClose class="w-4 h-4" />
+								</button>
+							</div>
+						{/each}
+					</div>
+				</div>
+			{/if}
+		</div>
+		<div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+			{#each filteredProjects as project}
+				<div
+					class="block max-w-[600px] divide-y divide-surface-800 overflow-hidden card border-[1px] border-surface-200-800 preset-filled-primary-500"
+				>
+					<article class="space-y-4 py-4">
+						<div>
+							<div class="px-4">
+								<h3 class="mb-2 text-center h3">{project.title}</h3><div class="mb-2 text-center">
+									<p class="italic">{formatProjectDates(project.startDate, project.endDate)}</p>
+								</div>
+							</div>
+							<hr class="mt-2 mb-4 hr" />
+							
+							<div class="mb-2 flex flex-nowrap items-center justify-center gap-2 px-4">
+								<img src={project.clientLogoUrl} class="h-12 max-w-[180px]" alt="client logo" />
+								<h2 class="text-center h6 italic">{project.clientName}</h2>
+							</div>
+							<div class="grid grid-cols-2 gap-2 px-4">
+								<div>
+									<div class="card-subtitle">My roles :</div>
+									<div class="flex flex-wrap items-center justify-start gap-2">
+										{#each project.roles as role}
+											<span class="badge preset-filled-tertiary-500">{role}</span>
+										{/each}
+									</div>
+								</div>
+								<div>
+									<div class="card-subtitle">Tags :</div>
+									<div class="flex flex-wrap items-center justify-start gap-2">
+										{#each project.tags as tag}
+											<span class="badge preset-filled-secondary-500">{tag}</span>
+										{/each}
+									</div>
+								</div>
+							</div>
+						</div>
+						<hr class="hr" />
+						<div class="px-4 text-justify">
+							<div class="mb-2">
+								<div class="card-subtitle mr-2">Context :</div><div>{project.context}</div>
+								<div class="card-subtitle mr-2">Description :</div><div>{project.description}</div>
+							</div>
+							<ul class="list-inside list-disc">
+								{#each project.activities as activity}
+									<li>{activity}</li>
+								{/each}
+							</ul>
+						</div>
+					</article>
+					{#if project.imageUrls && project.imageUrls.length > 0}
+						<footer class="flex items-center justify-between gap-4 p-4">
+							<Carousel imageUrls={project.imageUrls ?? []} />
+						</footer>
+					{/if}
+				</div>
+			{/each}
+		</div>
 	</div>
+
+
 </div>
 
 <style lang="postcss">

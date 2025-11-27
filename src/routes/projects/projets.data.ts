@@ -14,7 +14,7 @@ export interface Project {
 
 export enum ProjectTag {
     Angular = 'Angular',
-    Vue = 'Vue',
+    Vue = 'Vue.js',
     React = 'React',
     Node = 'Node.js',
     Nest = 'Nest',
@@ -59,7 +59,7 @@ export const projects: Project[] = [
             'Built an interactive neighborhood explorer (shops, transport, natural hazards, properties for sale)',
             'Developed an advanced PDF generator/editor with inline editing capabilities'],
         roles: [ProjectRole.FullStackDeveloper, ProjectRole.LeadDeveloper],
-        tags: [ProjectTag.Angular, ProjectTag.Java],
+        tags: [ProjectTag.Angular, ProjectTag.Java, ProjectTag.Frontend, ProjectTag.Backend],
     },
     {
         title: 'Development of a Real Estate Estimator and Explorer',
@@ -121,7 +121,7 @@ export const projects: Project[] = [
             'Integrated new features'
         ],
         roles: [ProjectRole.FrontendDeveloper],
-        tags: [ProjectTag.Angular, ProjectTag.SQL],
+        tags: [ProjectTag.Angular, ProjectTag.SQL, ProjectTag.Frontend],
     },
     {
         title: 'Development of a Project Management Software',
@@ -138,7 +138,7 @@ export const projects: Project[] = [
             'As Scrum Master: facilitated agile ceremonies (retrospectives, demos), supported and unblocked the team'
         ],
         roles: [ProjectRole.FrontendDeveloper, ProjectRole.ScrumMaster],
-        tags: [ProjectTag.Angular],
+        tags: [ProjectTag.Angular, ProjectTag.Frontend],
     },
     {
         title: 'Development of an Antivirus Management Interface for Naval Ships',
@@ -172,7 +172,7 @@ export const projects: Project[] = [
             'Improved internal processes and tooling to optimize the development workflow'
         ],
         roles: [ProjectRole.FullStackDeveloper],
-        tags: [ProjectTag.Angular, ProjectTag.Java],
+        tags: [ProjectTag.Angular, ProjectTag.Java, ProjectTag.Frontend, ProjectTag.Backend],
     },
     {
         title: 'Maintenance and Enhancements of Engie\'s Identity and Access Management Application',
@@ -188,7 +188,7 @@ export const projects: Project[] = [
             'Provided technical support'
         ],
         roles: [ProjectRole.FullStackDeveloper],
-        tags: [ProjectTag.Java, ProjectTag.Perl],
+        tags: [ProjectTag.Java, ProjectTag.Perl, ProjectTag.Frontend, ProjectTag.Backend],
     },
     {
         title: 'Development of an Internal Business Process Management Tool',
@@ -203,7 +203,7 @@ export const projects: Project[] = [
             'Implemented task tracking, history, and reporting features'
         ],
         roles: [ProjectRole.FullStackDeveloper],
-        tags: [ProjectTag.Java, ProjectTag.Grails, ProjectTag.MySQL],
+        tags: [ProjectTag.Java, ProjectTag.Grails, ProjectTag.MySQL, ProjectTag.Frontend, ProjectTag.Backend],
     },
     {
         title: 'Développement et intégration d\'un portail de gestion des identités et des accès',
@@ -218,7 +218,7 @@ export const projects: Project[] = [
             'Développement d\'un portail web centralisé pour la gestion des comptes et autorisations'
         ],
         roles: [ProjectRole.FullStackDeveloper],
-        tags: [ProjectTag.Java, ProjectTag.LDAP, ProjectTag.MIM],
+        tags: [ProjectTag.Java, ProjectTag.LDAP, ProjectTag.MIM, ProjectTag.Frontend, ProjectTag.Backend],
     },
     {
         title: 'Migration du système de messagerie interne',
@@ -235,7 +235,7 @@ export const projects: Project[] = [
             'Développement d\'une application web de suivi en temps réel des migrations'
         ],
         roles: [ProjectRole.FullStackDeveloper],
-        tags: [ProjectTag.PowerShell, ProjectTag.DotNet, ProjectTag.MIM],
+        tags: [ProjectTag.PowerShell, ProjectTag.DotNet, ProjectTag.MIM, ProjectTag.Frontend, ProjectTag.Backend],
     },
     {
         title: 'Développement d\'un outil de gestion d\'imprimantes',
@@ -252,6 +252,6 @@ export const projects: Project[] = [
             'Collaboration avec Accenture et Banque de France pour la recette et la mise en production'
         ],
         roles: [ProjectRole.BackendDeveloper],
-        tags: [ProjectTag.WindowsForms],
+        tags: [ProjectTag.WindowsForms, ProjectTag.Frontend],
     },
 ];
