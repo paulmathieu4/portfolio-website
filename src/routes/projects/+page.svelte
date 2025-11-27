@@ -82,6 +82,13 @@
 			selectedTags.some(tag => project.tags.includes(tag))
 		));
 
+	// Calculate total months for filtered projects
+	const filteredProjectsTotalMonths = $derived(
+		filteredProjects.reduce((total, project) => {
+			return total + calculateMonthDuration(project.startDate, project.endDate);
+		}, 0)
+	);
+
 	// Handle tag selection
 	function handleTagSelect() {
 		if (selectedTagValue && !selectedTags.includes(selectedTagValue as ProjectTag)) {
@@ -93,6 +100,11 @@
 	// Handle tag removal
 	function removeTag(tagToRemove: ProjectTag) {
 		selectedTags = selectedTags.filter(tag => tag !== tagToRemove);
+	}
+
+	// Handle remove all filters
+	function removeAllFilters() {
+		selectedTags = [];
 	}
 
 	// Logo paths from static folder
@@ -300,29 +312,55 @@
 					{/each}
 				</select>
 			</div>
-			{#if selectedTags.length > 0}
-				<div>
-					<div class="block mb-2 font-semibold">Active filters:</div>
-					<div class="flex flex-wrap items-center gap-2">
-						{#each selectedTags as tag}
-							<div class="badge preset-filled-secondary-500 flex items-center gap-2 px-3 py-1">
-								
-								<span>{tag}</span>
-								<button
-									type="button"
-									onclick={() => removeTag(tag)}
-									class="flex items-center justify-center hover:opacity-70 transition-opacity"
-									aria-label="Remove {tag} filter"
-								>
-								    
-									<MaterialSymbolsClose class="w-4 h-4" />
-								</button>
-							</div>
-						{/each}
+			<div class="flex flex-wrap items-center gap-2">
+				{#if selectedTags.length === 0}
+					<div class="badge preset-filled-secondary-500 px-3 py-1">
+						<span>All projects</span>
 					</div>
-				</div>
-			{/if}
+				{:else}
+					{#each selectedTags as tag}
+						<div class="badge preset-filled-secondary-500 flex items-center gap-2 px-3 py-1">
+							<span>{tag}</span>
+							<button
+								type="button"
+								onclick={() => removeTag(tag)}
+								class="flex items-center justify-center hover:opacity-70 transition-opacity"
+								aria-label="Remove {tag} filter"
+							>
+								<MaterialSymbolsClose class="w-4 h-4" />
+							</button>
+						</div>
+					{/each}
+					<button
+						type="button"
+						onclick={removeAllFilters}
+						class="badge preset-filled-tertiary-500 px-3 py-1 hover:opacity-80 transition-opacity"
+						aria-label="Remove all filters"
+					>
+						<span>Remove all filters</span>
+					</button>
+				{/if}
+			</div>
 		</div>
+		
+		<!-- Filtered Projects Summary -->
+		<div class="mt-4 card preset-filled-surface-100-900 border-[1px] border-surface-200-800 block overflow-hidden p-4">
+			<div class="flex flex-wrap items-center justify-between gap-4">
+				<div class="flex items-center gap-2">
+					<span class="font-semibold">Matching projects :</span>
+					<span class="badge preset-filled-secondary-500">
+						{filteredProjects.length} {filteredProjects.length === 1 ? 'project' : 'projects'}
+					</span>
+				</div>
+				<div class="flex items-center gap-2">
+					<span class="font-semibold">Total duration:</span>
+					<span class="badge preset-filled-secondary-500">
+						{filteredProjectsTotalMonths} {filteredProjectsTotalMonths === 1 ? 'month' : 'months'}
+					</span>
+				</div>
+			</div>
+		</div>
+		
 		<div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
 			{#each filteredProjects as project}
 				<div

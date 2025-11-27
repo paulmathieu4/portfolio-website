@@ -155,7 +155,7 @@ export const projects: Project[] = [
             'Authored technical specifications'
         ],
         roles: [ProjectRole.LeadDeveloper],
-        tags: [ProjectTag.Angular],
+        tags: [ProjectTag.Angular, ProjectTag.Frontend],
     },
     {
         title: 'Development of a Flight Comparison Tool',
