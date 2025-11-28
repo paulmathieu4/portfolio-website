@@ -15,11 +15,11 @@
 <div class="h-screen grid grid-rows-[auto_1fr_auto]">
     <header class="sticky top-0 z-10">
         <AppBar>
-            <AppBar.Toolbar class="grid-cols-[auto_1fr_auto]">
-                <AppBar.Headline>
+            <AppBar.Toolbar class="flex justify-between">
+                <AppBar.Headline class="hidden sm:block">
                     <p class="text-2xl">Paul's Portfolio</p>
                 </AppBar.Headline>
-                <AppBar.Headline class="flex justify-center">
+                <AppBar.Headline class="grow flex justify-center">
                     <nav class="btn-group preset-outlined-surface-200-800 flex-col p-2 md:flex-row">
                         <a href="/presentation" type="button" class="btn btn-lg {page.url.pathname === '/presentation' ? 'preset-filled-primary-500' : 'preset-outlined-primary-500'}"><MaterialSymbolsAccountCircleFull/>
                             <span>About me</span></a>

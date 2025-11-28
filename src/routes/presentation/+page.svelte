@@ -4,8 +4,8 @@
 </script>
 
 <div class="preset-content-width">
-    <div class="flex flex-row justify-between gap-x-4">
-        <div class="m-6">
+    <div class="grid sm:grid-cols-[1fr_auto] gap-x-4">
+        <div class="m-6 grow flex flex-col items-center">
             <h1 class="preset-page-title">Greetings, I am<br/> Paul MATHIEU</h1>
             <div class="flex align-middle">
                 <MingcuteMapPinFill class="w-8 h-8 text-red-500"/>
@@ -18,7 +18,7 @@
             </div>
         </div>
 
-        <div class="relative inline-block mr-2">
+        <div class="relative mr-2 flex justify-center">
             <img
                     src={profilePicture}
                     alt="Paul MATHIEU"
