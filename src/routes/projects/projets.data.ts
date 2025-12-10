@@ -15,10 +15,8 @@ export interface Project {
 export enum ProjectTag {
     Angular = 'Angular',
     Vue = 'Vue.js',
-    React = 'React',
     Node = 'Node.js',
     Nest = 'Nest',
-    Express = 'Express',
     Frontend = 'Frontend',
     Backend = 'Backend',
     Java = 'Java',
@@ -59,7 +57,7 @@ export const projects: Project[] = [
             'Built an interactive neighborhood explorer (shops, transport, natural hazards, properties for sale)',
             'Developed an advanced PDF generator/editor with inline editing capabilities'],
         roles: [ProjectRole.FullStackDeveloper, ProjectRole.LeadDeveloper],
-        tags: [ProjectTag.Angular, ProjectTag.Java, ProjectTag.Frontend, ProjectTag.Backend],
+        tags: [ProjectTag.Angular, ProjectTag.Java, ProjectTag.Frontend, ProjectTag.Backend, ProjectTag.SQL],
     },
     {
         title: 'Development of a Real Estate Estimator and Explorer',
@@ -105,7 +103,7 @@ export const projects: Project[] = [
             'Built a real-time synchronization bot between SQL and NoSQL databases (CRUD propagation and relational-to-document model transformation)'
         ],
         roles: [ProjectRole.LeadDeveloper],
-        tags: [ProjectTag.Nest, ProjectTag.Node, ProjectTag.Backend, ProjectTag.CouchDB, ProjectTag.NoSQL],
+        tags: [ProjectTag.Nest, ProjectTag.Node, ProjectTag.Backend, ProjectTag.CouchDB, ProjectTag.NoSQL, ProjectTag.SQL],
     },
     {
         title: 'Development of an Internal Vehicle Rental Application',

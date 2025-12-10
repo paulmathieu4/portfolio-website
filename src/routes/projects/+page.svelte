@@ -176,6 +176,13 @@
 	onMount(() => {
 		const positions = calculatePositions(logos.length);
 
+		function getSphereRadius(): number {
+			if (!container) return 150;
+			const rect = container.getBoundingClientRect();
+			// Use the smaller dimension to ensure sphere fits within container
+			return Math.min(rect.width, rect.height) / 2;
+		}
+
 		function onMouseMove(e: MouseEvent) {
 			const rect = container.getBoundingClientRect();
 			const cx = rect.left + rect.width / 2;
@@ -216,14 +223,15 @@
 				autoAngle += autoRotateSpeed;
 
 				const logoElements = sphere.children as unknown as HTMLElement[];
+				const radius = getSphereRadius();
 				for (let i = 0; i < logoElements.length; i++) {
 					const base = positions[i];
 					const rotated = rotateYX(base, autoAngle + currentRy, currentRx);
 
 					// 2D projection (keep your original mapping)
 					const scale = (rotated.z + 2) / 3; // [~0.33..1]
-					const px = rotated.x * 150; // sphere radius in px
-					const py = rotated.y * 150;
+					const px = rotated.x * radius * 0.8; // 0.8 to prevent logos from being cut off
+					const py = rotated.y * radius * 0.8;
 
 					const el = logoElements[i] as HTMLElement;
 					el.style.transform = `translate(${px}px, ${py}px) scale(${scale})`;
@@ -249,7 +257,7 @@
 		<StreamlineUltimateCodingAppsWebsiteAppsBrowserBold class="inline" />
 		My Projects
 	</h1>
-	<div class="card preset-filled-surface-100-900 border-[1px] border-surface-200-800 block overflow-hidden p-4 grid grid-cols-[repeat(auto-fit,minmax(400px,1fr))] gap-8">
+	<div class="card preset-filled-surface-100-900 border-[1px] border-surface-200-800 block overflow-hidden p-4 grid grid-cols-[repeat(auto-fit,1fr)] gap-8">
 		<div>
 			<article class="space-y-4 p-4">
 				<div>
@@ -287,7 +295,6 @@
 		
 	</div>
 	
-	<!-- Filters Section -->
 	<div class="mt-4 card preset-filled-surface-100-900 border-[1px] border-surface-200-800 block overflow-hidden p-4">
 		<h2 class="preset-typo-subtitle mb-4">My projects</h2>
 		<div class="space-y-4">
@@ -343,7 +350,7 @@
 			</div>
 		</div>
 		
-		<!-- Filtered Projects Summary -->
+		Filtered Projects Summary
 		<div class="mt-4 card preset-filled-surface-100-900 border-[1px] border-surface-200-800 block overflow-hidden p-4">
 			<div class="flex flex-wrap items-center justify-between gap-4">
 				<div class="flex items-center gap-2">
@@ -433,8 +440,9 @@
 
 	.circle-card {
 		@apply flex items-center justify-center rounded-full;
-		width: 400px;
-		height: 400px;
+		width: 100%;
+		max-width: 400px;
+		aspect-ratio: 1;
 		overflow: hidden;
 		box-shadow:
 			0 4px 6px -1px rgb(0 0 0 / 0.1),
@@ -442,7 +450,10 @@
 	}
 
 	.sphere-container {
-		@apply relative my-12 flex h-[300px] w-[300px] items-center justify-center;
+		@apply relative my-12 flex items-center justify-center;
+		width: 100%;
+		height: 100%;
+		aspect-ratio: 1;
 		/* Perspective helps depth feel even with the manual scale projection */
 		perspective: 1000px;
 		cursor: grab;
@@ -465,9 +476,6 @@
 	}
 
 	@media (max-width: 640px) {
-		.sphere-container {
-			@apply h-[300px];
-		}
 		.logo {
 			@apply h-8;
 		}
