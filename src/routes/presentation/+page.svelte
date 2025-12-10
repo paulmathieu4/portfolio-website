@@ -11,7 +11,7 @@
                 <MingcuteMapPinFill class="w-8 h-8 text-red-500"/>
                 <span class="inline-block text-2xl ml-4">Nice, France</span>
             </div>
-            <div class="flex gap-4 mt-6">
+            <div class="flex flex-wrap justify-evenly gap-4 mt-6">
                 <span class="badge preset-filled-primary-500">Full-stack Developer</span>
                 <span class="badge preset-filled-primary-500">10 years of experience</span>
                 <span class="badge preset-filled-primary-500">Free-Lance</span>

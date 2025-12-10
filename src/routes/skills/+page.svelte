@@ -76,21 +76,21 @@
     };
 
     const radarChartOptions = {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-            r: {
-                suggestedMin: 1,
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                r: {
+                    suggestedMin: 1,
                 suggestedMax: 10
-            }
-        },
-        plugins: {
-            title: {
-                text: 'Technical Skills',
-                display: true,
+                }
             },
-            legend: {
-                onClick: null // This disables the native filtering on legend click to prevent conflict with our filtering
+            plugins: {
+                title: {
+                    text: 'Technical Skills',
+                    display: true,
+                },
+                legend: {
+                onClick: () => {} // This disables the native filtering on legend click to prevent conflict with our filtering
             }
 
         }
@@ -130,9 +130,9 @@
                 data: chartData,
                 options: radarChartOptions
             });
-        }
-    });
-
+                    }
+                });
+                
     // Update the filterByArea function to handle the chart
     function filterByArea(area: string) {
         activeSkillFilter = area;
@@ -182,24 +182,24 @@
             </nav>
         </div>
         {#each sortedSkillsByLevel as skill}
-            <div class="flex items-center space-x-2">
-                <!-- svelte-ignore hydration_attribute_changed -->
+            <div class="flex flex-wrap items-center gap-2">
                 <img src={skill.iconUrl} alt="skill icon" class="w-6 h-6 "/>
-                <span class="w-80">{formatSkillName(skill.name)}</span>
+                <span>{formatSkillName(skill.name)}</span>
 
-                <Progress value={skill.level} max={10} class="w-full">
+                <Progress value={skill.level} max={10}>
                     <Progress.Track>
                         <Progress.Range class="bg-primary-500"/>
                     </Progress.Track>
                 </Progress>
             </div>
         {/each}
-        <div class="chart-container flex-1 mx-auto">
+        <div class="hidden md:block chart-container flex-1 mx-auto">
             <div>
                 <canvas bind:this={chartCanvas}></canvas>
             </div>
         </div>
     </SkillsCard>
+
 
     <SkillsCard title="My soft skills" class="mt-8">
         <SoftSkillRing/>
@@ -220,7 +220,7 @@
         canvas {
             width: 100%;
             height: 100%;
-        }
+    }
     }
 
     .selected-filter {

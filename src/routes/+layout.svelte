@@ -13,7 +13,7 @@
     <title>Paul's Portfolio</title>
 </svelte:head>
 <div class="h-screen grid grid-rows-[auto_1fr_auto]">
-    <header class="sticky top-0 z-10">
+    <header class="sticky top-0 z-50 isolate">
         <AppBar>
             <AppBar.Toolbar class="flex justify-between">
                 <AppBar.Headline class="hidden sm:block">
@@ -37,8 +37,6 @@
     <main class="bg-surface-950 p-4 space-y-4">
         {@render children?.()}
     </main>
-    <!-- Footer -->
-    <footer class="bg-blue-500 p-4">(footer)</footer>
 </div>
 
 

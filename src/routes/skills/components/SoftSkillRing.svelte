@@ -22,7 +22,7 @@
 <!-- Wrapper: size is responsive; ring scales with container -->
 <div
         class="relative mx-auto grid place-items-center"
-        style="width:min(90vw, 40rem); aspect-ratio: 1/1;"
+        style="aspect-ratio: 1/1;"
         aria-label="Soft skills around avatar"
 >
     <!-- Decorative outer ring -->
@@ -67,7 +67,7 @@
 
     <!-- Skills chips positioned around the ring -->
     {#each positions(softSkills.length) as p, i (p.angle)}
-        <span class="badge preset-filled-primary-500 absolute z-20"
+        <span class="badge preset-filled-primary-500 absolute z-10"
               style="left: {p.x}%; top: {p.y}%; transform: translate(-50%, -50%)"
         >{softSkills[i]}</span>
     {/each}
