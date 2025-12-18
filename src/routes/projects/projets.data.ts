@@ -1,7 +1,7 @@
 export interface Project {
     title: string;
     clientName: string;
-    clientLogoUrl: string;
+    clientLogoUrl?: string;
     startDate: Date;
     endDate: Date;
     context: string;
@@ -15,6 +15,10 @@ export interface Project {
 export enum ProjectTag {
     Angular = 'Angular',
     Vue = 'Vue.js',
+    React = 'React',
+    ReactNative = 'React Native',
+    Svelte = 'Svelte',
+    Expo = 'Expo',
     Node = 'Node.js',
     Nest = 'Nest',
     Frontend = 'Frontend',
@@ -34,6 +38,7 @@ export enum ProjectTag {
     PowerShell = 'PowerShell',
     DotNet = '.NET',
     WindowsForms = 'Windows Forms',
+    Firebase = 'Firebase'
 }
 
 export enum ProjectRole {
@@ -251,5 +256,48 @@ export const projects: Project[] = [
         ],
         roles: [ProjectRole.BackendDeveloper],
         tags: [ProjectTag.WindowsForms, ProjectTag.Frontend],
+    },
+    {
+        title: 'Projet personnel - Quiz Master',
+        clientName: 'Projet personnel',
+        startDate: new Date('2024-12-01'),
+        endDate: new Date('2025-01-01'),
+        context: "Projet ludique de création d’un générateur de quiz, dans le but d'apprendre VueJS, Firebase serverless et l'utilisation de l'API ChatGPT.",
+        description: "Développement d'un générateur de quizz. L’utilisateur peut choisir un sujet (par exemple géographie, histoire) et un niveau de difficulté, puis un quiz est généré dynamiquement grâce à l’API ChatGPT. Le quiz se compose de questions à choix multiple auxquelles l’utilisateur peut répondre.",
+        activities: [
+            "Développement d'un back-end faisant appel à l'API de ChatGPT pour générer des questions et des réponses.",
+            "Développement d'une progressive web app en VueJS",
+        ],
+        roles: [ProjectRole.FullStackDeveloper],
+        tags: [ProjectTag.Backend, ProjectTag.Frontend, ProjectTag.Vue, ProjectTag.Firebase],
+        imageUrls: ['/project-images/quiz-master/quizmaster-screenshot1.png', '/project-images/quiz-master/quizmaster-screenshot2.png']
+    },
+    {
+        title: 'Projet personnel - Memory Game multi-plateformes',
+        clientName: 'Projet personnel',
+        startDate: new Date('2025-08-01'),
+        endDate: new Date('2025-09-01'),
+        context: "Projet ludique pour monter en compétences sur l'éditeur de code Cursor et sur les technologies React Native et Expo.",
+        description: "Développement d'un Memory Game où il faut retourner les cartes pour trouver les paires correspondantes avec des types de contenu personnalisables, Création d’une application web ainsi que d’applications Android et iOS utilisant des fonctions natives, comme la prise de photos pour les utiliser comme paires à associer.",
+        activities: [
+            "Développement d'une application React Native multi-plateformes",
+        ],
+        roles: [ProjectRole.FullStackDeveloper],
+        tags: [ProjectTag.Frontend, ProjectTag.React, ProjectTag.ReactNative, ProjectTag.Expo],
+        imageUrls: ['/project-images/memory-game/Screenshot_Memory-game.webp'],
+    },
+    {
+        title: 'Projet personnel - Site web Portfolio',
+        clientName: 'Projet personnel',
+        startDate: new Date('2025-09-01'),
+        endDate: new Date('2025-11-01'),
+        context: "Site web permettant de présenter mon portfolio et mes projets et de monter en compétences sur la technologie Svelte.",
+        description: "Développement de ce site web avec Svelte (SvelteKit / Skelleton) afin de présenter mes projets, compétences et clients.",
+        activities: [
+            "Développement d'une application avec SvelteKit et Chart.js",
+        ],
+        roles: [ProjectRole.FullStackDeveloper],
+        tags: [ProjectTag.Frontend, ProjectTag.Backend, ProjectTag.Svelte],
+        imageUrls: ['/project-images/portfolio-website/portfolio-screenshot-1.png', '/project-images/portfolio-website/portfolio-screenshot-2.png'],
     },
 ];

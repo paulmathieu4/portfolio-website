@@ -263,9 +263,9 @@
 				<div>
 					<h2 class="preset-typo-subtitle">Overview</h2>
 				</div>
-				<div class="flex flex-nowrap justify-between">
+				<div class="flex flex-nowrap items-center gap-2">
 					<h3 class="font-bold">Number of projects :</h3>
-					<div>{projects.length}</div>
+					<span class="badge preset-filled-secondary-500 text-lg">{projects.length}</span>
 				</div>
 				<div class="flex flex-col gap-2">
 					<h3 class="font-bold">Most used technologies :</h3>
@@ -383,7 +383,9 @@
 							<hr class="mt-2 mb-4 hr" />
 							
 							<div class="mb-2 flex flex-nowrap items-center justify-center gap-2 px-4">
-								<img src={project.clientLogoUrl} class="h-12 max-w-[180px]" alt="client logo" />
+								{#if project.clientLogoUrl}
+									<img src={project.clientLogoUrl} class="h-12 max-w-[180px]" alt="client logo" />
+								{/if}
 								<h2 class="text-center h6 italic">{project.clientName}</h2>
 							</div>
 							<div class="grid grid-cols-2 gap-2 px-4">
